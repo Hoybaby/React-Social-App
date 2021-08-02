@@ -21,8 +21,11 @@
     "memory-pager": "^1.5.0",
     "mongoose": "^5.13.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
   "scripts": {
+    "start": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
