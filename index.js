@@ -1,9 +1,13 @@
 const { ApolloServer} = require('apollo-server');
 
+
 const gql = require('graphql-tag');
 
+// Database connection
+const mongoose = require(mongoose);
+
 //  in this variable, we will write the typed ql types
-const typedDefs = gql`
+const typeDefs = gql`
     type Query {
         sayHi: String!
     }
@@ -13,15 +17,18 @@ const typedDefs = gql`
 // if we have a query of sayHi, it needs a resolver of sayHi
 const resolvers = {
     Query: {
-        sayHi: () => 'hello world'
+        sayHi: () => 'hello world!!!!!'
     }
 }
 
 const server = new ApolloServer({
-    typedDefs,
+    typeDefs,
     resolvers
 
 });
+
+// connection to database
+
 
 server.listen({ port: 5000})
     .then(res => {
