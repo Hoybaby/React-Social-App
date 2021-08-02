@@ -6,11 +6,19 @@ const gql = require('graphql-tag');
 // Database connection
 const mongoose = require('mongoose');
 
+// Schemas
+
+const Post = require('./models/Post')
+
 //  in this variable, we will write the typed ql types
 const typeDefs = gql`
-    type Query {
-        sayHi: String!
+    type Post{
+        id: ID!
+        body: String!
+        createdAt: String!
+        username: String!
     }
+    getPosts: [Post]
 `
 
 // resolvers do is that for each quiery, mutation, subscription, it has it corresponding resolver
