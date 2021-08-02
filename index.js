@@ -4,7 +4,7 @@ const { ApolloServer} = require('apollo-server');
 const gql = require('graphql-tag');
 
 // Database connection
-const mongoose = require(mongoose);
+const mongoose = require('mongoose');
 
 //  in this variable, we will write the typed ql types
 const typeDefs = gql`
@@ -28,9 +28,12 @@ const server = new ApolloServer({
 });
 
 // connection to database
+const {MONGODB} = require('./config.js')
 
-
-server.listen({ port: 5000})
-    .then(res => {
+mongoose.connect(MONGODB, { useNewUrlParser: true, useUnifiedTopology: true } )
+    .then(() => {
+        console.log('MONGODB is connected')
+        return server.listen({ port: 5000})
+    }).then(res => {
         console.log(`server running at ${res.url}`)
-    })
+})
