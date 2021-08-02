@@ -6,6 +6,7 @@ const gql = require('graphql-tag');
 // Database connection
 const mongoose = require('mongoose');
 
+
 // Schemas
 
 const Post = require('./models/Post')
@@ -18,14 +19,25 @@ const typeDefs = gql`
         createdAt: String!
         username: String!
     }
-    getPosts: [Post]
+    type Query {
+        getPosts: [Post]
+    }
+    
 `
 
 // resolvers do is that for each quiery, mutation, subscription, it has it corresponding resolver
 // if we have a query of sayHi, it needs a resolver of sayHi
 const resolvers = {
     Query: {
-        sayHi: () => 'hello world!!!!!'
+        async getPosts(){
+            // maybe your quiery never fails but if it does, it may stop your server so doing a try is nice
+            try {
+                const posts = await Post.find();
+                return posts;
+            } catch {
+                throw new Error(err);
+            }
+        }
     }
 }
 
