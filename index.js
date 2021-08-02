@@ -8,22 +8,13 @@ const mongoose = require('mongoose');
 
 
 // Schemas
-
 const Post = require('./models/Post')
 
+// typedDefs needed for GraphQL
+const typedDefs = require('./graphql/typedDefs')
+
 //  in this variable, we will write the typed ql types
-const typeDefs = gql`
-    type Post{
-        id: ID!
-        body: String!
-        createdAt: String!
-        username: String!
-    }
-    type Query {
-        getPosts: [Post]
-    }
-    
-`
+
 
 // resolvers do is that for each quiery, mutation, subscription, it has it corresponding resolver
 // if we have a query of sayHi, it needs a resolver of sayHi
