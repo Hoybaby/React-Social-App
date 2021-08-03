@@ -9,6 +9,7 @@ module.exports = {
             // What i need to do: Validate user data,
             // make sure users doesn't already exist
             // hash password before storing it in the database and create an auth token
+            
         }
     }
 }
