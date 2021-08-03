@@ -27,6 +27,10 @@ module.exports = {
         // dont need to descontructure because we have in the typeDefs already
         async login(_, {username, password}) {
             const {errors, valid} = validateLoginInput(username, password)
+
+            if(!valid) {
+                throw  new UserInputError('Not Valid', {errors});
+            }
             const user = await User.findOne({username})
 
             if(!user) {
@@ -36,6 +40,7 @@ module.exports = {
 
             const match = await bcrypt.compare(password, user.password);
             if(!match) {
+                errors.general = "Wrong credentials"
                 throw  new UserInputError('Wrong credentials', {errors});
             }
 
