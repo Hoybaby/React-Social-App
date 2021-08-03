@@ -10,7 +10,7 @@ module.exports = gql`
     type User {
         id: ID!
         email: String!
-        toekn: String!
+        token: String!
         username: String!
         createdAt: String!
     }
