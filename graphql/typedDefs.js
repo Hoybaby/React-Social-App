@@ -10,7 +10,7 @@ module.exports = gql`
     type User {
         id: ID!
         email: String!
-        toekn: String!
+        token: String!
         username: String!
         createdAt: String!
     }
@@ -26,7 +26,9 @@ module.exports = gql`
     }
     # in order to make users log in need to make a mutation
     type Mutation {
+        # this is handlded in the users.js part
         register(registerInput: RegisterInput): User!
+        login(username: String!, password: String!) : User!
     }
     
 `
