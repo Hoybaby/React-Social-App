@@ -21,6 +21,10 @@ module.exports = {
         ) {
             // What i need to do: Validate user data,
             const {valid, errors} = validateRegisterInput( username, email, password, confirmPassword)
+            if(!valid) {
+                // I am passing in the payload of those errors I created in the validators.js
+                throw new UserInputError('Errors', {errors})
+            }
             // make sure users doesn't already exist
             // lines 22-29 makes sures that if user is found , it will register and error and not proceed to log in the results
             const user = await User.findOne(({username}));
