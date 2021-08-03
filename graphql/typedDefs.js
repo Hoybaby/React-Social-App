@@ -26,7 +26,9 @@ module.exports = gql`
     }
     # in order to make users log in need to make a mutation
     type Mutation {
+        # this is handlded in the users.js part
         register(registerInput: RegisterInput): User!
+        login(username: String!, password: String!) : User!
     }
     
 `

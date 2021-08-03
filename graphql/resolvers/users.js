@@ -11,6 +11,22 @@ const {SECRET_KEY} = require('../../config');
 
 module.exports = {
     Mutation: {
+
+        // dont need to descontructure because we have in the typeDefs already
+        async login(_, {username, password}) {
+            const {errors, valid} = validateLoginInput(username, password)
+            const user = await User.findOne({username})
+
+            if(!user) {
+                errors.general = 'User not found';
+                throw new UserInputError('User not Found', {errors});
+            } 
+
+            const match = await bcrypt.compare(password, user.password);
+            if(!match) {
+                throw  new UserInputError('Wrong credentials', {errors});
+            }
+        },
         // inside of the register function, needs to take some input
         // parents give us resaults from the input from last step, in some cases, you can have mutiple resolvers
         // register(parent, args,context, info)
