@@ -1,25 +1,17 @@
 const { ApolloServer} = require('apollo-server');
 
-
-const gql = require('graphql-tag');
-
 // Database connection
 const mongoose = require('mongoose');
 
-//  in this variable, we will write the typed ql types
-const typeDefs = gql`
-    type Query {
-        sayHi: String!
-    }
-`
+// typedDefs needed for GraphQL and Resolvers for the trypedDefs
+const typeDefs = require('./graphql/typedDefs')
+const resolvers = require('./graphql/resolvers');
 
-// resolvers do is that for each quiery, mutation, subscription, it has it corresponding resolver
+// connection to database
+const {MONGODB} = require('./config.js')
+
+// what do resolvers do? For each quiery, mutation, subscription, it has it corresponding resolver
 // if we have a query of sayHi, it needs a resolver of sayHi
-const resolvers = {
-    Query: {
-        sayHi: () => 'hello world!!!!!'
-    }
-}
 
 const server = new ApolloServer({
     typeDefs,
@@ -27,8 +19,7 @@ const server = new ApolloServer({
 
 });
 
-// connection to database
-const {MONGODB} = require('./config.js')
+
 
 mongoose.connect(MONGODB, { useNewUrlParser: true, useUnifiedTopology: true } )
     .then(() => {

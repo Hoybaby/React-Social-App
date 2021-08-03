@@ -6,6 +6,7 @@
   "dependencies": {
     "apollo-reporting-protobuf": "^3.0.0",
     "apollo-server": "^3.1.1",
+    "bcryptjs": "^2.4.3",
     "etag": "^1.8.1",
     "fast-json-stable-stringify": "^2.1.0",
     "forwarded": "^0.2.0",
@@ -14,6 +15,7 @@
     "inherits": "^2.0.4",
     "ipaddr.js": "^1.9.1",
     "isarray": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash.sortby": "^4.7.0",
     "loglevel": "^1.7.1",
     "long": "^4.0.0",
@@ -21,8 +23,11 @@
     "memory-pager": "^1.5.0",
     "mongoose": "^5.13.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
   "scripts": {
+    "start": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
