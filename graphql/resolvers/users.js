@@ -14,11 +14,11 @@ module.exports = {
         async register(
             _,
             { registerInput: { username, email, password, confirmPassword } },
-            context,
-            info
+            
         ) {
             // What i need to do: Validate user data,
             // make sure users doesn't already exist
+            // lines 22-29 makes sures that if user is found , it will register and error and not proceed to log in the results
             const user = await User.findOne(({username}));
             if(user) {
                 throw new UserInputError('Username is taken', {
