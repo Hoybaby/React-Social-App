@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
 // validation
-const {validateRegisterInput} = require('../../utils/validators')
+const {validateRegisterInput, validateLoginInput} = require('../../utils/validators')
 
 const {UserInputError} = require('apollo-server');
 
