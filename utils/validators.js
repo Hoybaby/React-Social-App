@@ -37,7 +37,7 @@ module.exports.validateLoginInput = (username, password) => {
         errors.username = "Username must not be empty";
     }
 
-    const errors = {};
+
     if (password.trim() === "") {
         errors.username = "Password must not be empty";
     }

@@ -39,6 +39,14 @@ module.exports = {
                 throw  new UserInputError('Wrong credentials', {errors});
             }
 
+            const token = generateToken(user);
+
+            return {
+                ...user._doc,
+                id: user._id,
+                token
+            }
+
             
         },
         // inside of the register function, needs to take some input
