@@ -9,6 +9,18 @@ const {UserInputError} = require('apollo-server');
 
 const {SECRET_KEY} = require('../../config');
 
+const generateToken =(user) => {
+    return jwt.sign(
+        {
+        id: user.id,
+        email: user.email,
+        username: user.username
+        // going to input my secret key below which i deconstructed from the config file. it is going into config file to hide sensitive information from github
+    },
+    SECRET_KEY, {expiresIn: '1h'});
+
+}
+
 module.exports = {
     Mutation: {
 
@@ -26,6 +38,8 @@ module.exports = {
             if(!match) {
                 throw  new UserInputError('Wrong credentials', {errors});
             }
+
+            
         },
         // inside of the register function, needs to take some input
         // parents give us resaults from the input from last step, in some cases, you can have mutiple resolvers
@@ -68,12 +82,7 @@ module.exports = {
 
             const res = await newUser.save()
 
-            const token = jwt.sign({
-                id: res.id,
-                email: res.email,
-                username: res.username
-                // going to input my secret key below which i deconstructed from the config file. it is going into config file to hide sensitive information from github
-            },SECRET_KEY, {expiresIn: '1h'});
+            const token = generateToken(res)
             return {
                 ...res._doc,
                 id: res._id,
