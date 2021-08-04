@@ -33,6 +33,20 @@ module.exports = {
         async createPost(_, { body}, context) {
             // if there is any errors, it would occur in the check-auth.js
             const user = checkAuth(context)
+            console.log(user)
+
+            const newPost = new Post({
+                body,
+                // user from Post model, we gave it a user and an ID
+                user: user.id,
+                username: user.username,
+                createdAt: new Date().toISOString()
+
+            });
+
+            const post = await newPost.save();
+
+            return post;
 
         }
     }
