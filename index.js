@@ -18,7 +18,6 @@ const server = new ApolloServer({
     resolvers,
     context: ({req}) => ({req})
 
-    
 
 });
 

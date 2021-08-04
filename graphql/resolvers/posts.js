@@ -25,5 +25,13 @@ module.exports = {
                 throw new Error(err)
             }
         }
+    },
+
+    Mutation: {
+        // users will log in, get the token.
+        // in the context arugment, we are using destructuring to get the headers to tell if the user is authenicated.
+        async createPost(_, { body}, context) {
+
+        }
     }
 }
