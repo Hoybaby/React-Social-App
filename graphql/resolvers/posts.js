@@ -6,7 +6,7 @@ module.exports = {
         async getPosts(){
             // maybe your quiery never fails but if it does, it may stop your server so doing a try is nice
             try {
-                const posts = await Post.find();
+                const posts = await Post.find().sort({createdAt: -1});
                 return posts;
             } catch {
                 throw new Error(err);
