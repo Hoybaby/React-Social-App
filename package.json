@@ -12,6 +12,7 @@
     "forwarded": "^0.2.0",
     "fresh": "^0.5.2",
     "graphql": "^15.5.1",
+    "graphql-playground": "^1.3.17",
     "inherits": "^2.0.4",
     "ipaddr.js": "^1.9.1",
     "isarray": "^1.0.0",
