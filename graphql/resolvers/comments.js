@@ -1,34 +1,50 @@
-const Post = require('../../models/Post');
+const { AuthenticationError, UserInputError } = require('apollo-server');
+
 const checkAuth = require('../../utils/check-auth');
+const Post = require('../../models/Post');
 
-const {UserInputError} = require('apollo-server')
-
-module.exports - {
+module.exports = {
     Mutation: {
-        createComment: async(_, {postId, body}, context) => {
-            // this will check if the user is logged in
-            const {username} = checkAuth(context)
-            if(body.trim() === '') {
-                throw new UserInputError('Empty Comment', {
+        createComment: async (_, { postId, body }, context) => {
+            const { username } = checkAuth(context);
+            if (body.trim() === '') {
+                throw new UserInputError('Empty comment', {
                     errors: {
-                        body: 'Comment body must not be empty'
+                        body: 'Comment body must not empty'
                     }
-                })
+                });
             }
 
-            const post = await post.findById(postId);
-            if(post) {
-                // mongoose turns our data into a json models into json objects.
+            const post = await Post.findById(postId);
+
+            if (post) {
                 post.comments.unshift({
                     body,
                     username,
-                    createdAt: new Date().toISOSString()
-                })
+                    createdAt: new Date().toISOString()
+                });
                 await post.save();
                 return post;
-            
-                // this is checking if post is not true, it will read this as typical logic suggests
-            } else throw new UserInputError('Post not found')
+            } else throw new UserInputError('Post not found');
+        },
+        async deleteComment(_, { postId, commentId }, context) {
+            const { username } = checkAuth(context);
+
+            const post = await Post.findById(postId);
+
+            if (post) {
+                const commentIndex = post.comments.findIndex((c) => c.id === commentId);
+
+                if (post.comments[commentIndex].username === username) {
+                    post.comments.splice(commentIndex, 1);
+                    await post.save();
+                    return post;
+                } else {
+                    throw new AuthenticationError('Action not allowed');
+                }
+            } else {
+                throw new UserInputError('Post not found');
+            }
         }
     }
-}
+};
