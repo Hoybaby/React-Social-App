@@ -7,7 +7,7 @@ module.exports = gql`
         createdAt: String!
         username: String!
         comments: [Comment]!
-        likes: [Likes]!
+        likes: [Like]!
     }
     type Comment {
         id: ID!
@@ -47,7 +47,7 @@ module.exports = gql`
         deletePost(postId: ID!): String!
         createComment(postId: String!, body: String!): Post!
         # taking the post ID checks if the post is still up which is kinda nice
-        deleteComment(postId: ID!, commendId: ID!): Post!
+        deleteComment(postId: ID!, commentId: ID!): Post!
         # this like post will be a toggle eventually
         likePost(postId: ID!): Post!
 
