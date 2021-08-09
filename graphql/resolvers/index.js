@@ -6,10 +6,7 @@ module.exports = {
     // modifiers. If we have the name of the type, like Post, and we do something to change the fields, it will go through this Post modifier to apply the changes
     Post: {
         // parent holds the data from the previous step
-        likeCount(parent) {
-            console.log(parent);
-            return parent.likes.length
-        },
+        likeCount: (parent) => parent.likes.length,
         commentCount:(parent) => parent.comments.length
     },
 

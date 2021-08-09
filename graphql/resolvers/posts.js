@@ -37,6 +37,9 @@ module.exports = {
             const user = checkAuth(context)
             console.log(user)
 
+            if(args.body.trim() === '') {
+                throw new Error('Post body can not be empty')
+            }
             const newPost = new Post({
                 body,
                 // user from Post model, we gave it a user and an ID
