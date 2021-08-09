@@ -6,6 +6,21 @@ module.exports = gql`
         body: String!
         createdAt: String!
         username: String!
+        comments: [Comment]!
+        likes: [Like]!
+        likeCount: Int!
+        commentCount: Int!
+    }
+    type Comment {
+        id: ID!
+        createdAt: String!
+        username: String!
+        body: String!
+    }
+    type Like {
+        id: ID!
+        createdAt: String!
+        username: String!
     }
     type User {
         id: ID!
@@ -32,6 +47,12 @@ module.exports = gql`
         login(username: String!, password: String!) : User!
         createPost(body: String!): Post!
         deletePost(postId: ID!): String!
+        createComment(postId: String!, body: String!): Post!
+        # taking the post ID checks if the post is still up which is kinda nice
+        deleteComment(postId: ID!, commentId: ID!): Post!
+        # this like post will be a toggle eventually
+        likePost(postId: ID!): Post!
+
     }
     
 `
