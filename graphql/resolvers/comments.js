@@ -30,12 +30,15 @@ module.exports = {
         async deleteComment(_, { postId, commentId }, context) {
             const { username } = checkAuth(context);
 
+            // this will find the post
             const post = await Post.findById(postId);
 
+            // we want to find that comment and that index and then remove it at that index
             if (post) {
                 const commentIndex = post.comments.findIndex((c) => c.id === commentId);
-
+                // we need to check and make sure that others users don't delete others user's comments
                 if (post.comments[commentIndex].username === username) {
+                    // the above makes sure the owener is the owner
                     post.comments.splice(commentIndex, 1);
                     await post.save();
                     return post;
