@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, Icon, Label } from 'semantic-ui-react';
+import { Card, Icon, Label, Image } from 'semantic-ui-react';
+import Moment from 'moment'
+import moment from 'moment';
 
 function PostCard({ post: { body, createdAt, id, username, likeCount, commentCount, likes } }) {
     <Card>
@@ -10,20 +12,13 @@ function PostCard({ post: { body, createdAt, id, username, likeCount, commentCou
                 src='https://react.semantic-ui.com/images/avatar/large/molly.png'
             />
             <Card.Header>{username}</Card.Header>
-            <Card.Meta></Card.Meta>
+            <Card.Meta>{moment(createdAt.fromNow())}</Card.Meta>
             <Card.Description>
                 Molly wants to add you to the group <strong>musicians</strong>
             </Card.Description>
         </Card.Content>
         <Card.Content extra>
-            <div className='ui two buttons'>
-                <Button basic color='green'>
-                    Approve
-                </Button>
-                <Button basic color='red'>
-                    Decline
-                </Button>
-            </div>
+            <p>buttons here</p>
         </Card.Content>
     </Card>
 }

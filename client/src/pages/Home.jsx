@@ -6,10 +6,12 @@ import PostCard from '../components/PostCard/PostCard'
 
 function Home() {
     // from useQuery we get, loading which is true and data. 
-    const {loading, data: {getPosts: posts}} = useQuery(FETCH_POSTS_QUERY)
-    if(data) {
-        console.log(data);
-    }
+    const {loading, 
+        data: {getPosts: posts}
+    } = useQuery(FETCH_POSTS_QUERY);
+    // if(data) {
+    //     console.log(data);
+    // }
     return (
         <Grid columns={3}>
             <Grid.Row>
