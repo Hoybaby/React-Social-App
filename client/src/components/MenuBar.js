@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Menu, Segment } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 
 function MenuBar() {
 
@@ -8,37 +8,30 @@ function MenuBar() {
     const handleItemClick = (e, { name }) => setActiveItem(name)
 
         return (
-            <div>
                 <Menu pointing secondary>
                     <Menu.Item
                         name='home'
                         // if activeItem is true, the messages will be highlighted
                         active={activeItem === 'home'}
-                        onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                        name='messages'
-                        active={activeItem === 'messages'}
-                        onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                        name='friends'
-                        active={activeItem === 'friends'}
-                        onClick={this.handleItemClick}
+                        // got rid of this.handleItemClick because it aint a class based component anymore
+                        onClick={handleItemClick}
                     />
                     <Menu.Menu position='right'>
                         <Menu.Item
-                            name='logout'
-                            active={activeItem === 'logout'}
-                            onClick={this.handleItemClick}
+                            name='login'
+                            active={activeItem === 'login'}
+                            onClick={handleItemClick}
+                        />
+                    </Menu.Menu>
+                    
+                    <Menu.Menu position='right'>
+                        <Menu.Item
+                            name='register'
+                            active={activeItem === 'register'}
+                            onClick={handleItemClick}
                         />
                     </Menu.Menu>
                 </Menu>
-
-                <Segment>
-                    <img src='/images/wireframe/media-paragraph.png' />
-                </Segment>
-            </div>
         )
     
 }
