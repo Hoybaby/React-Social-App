@@ -7,10 +7,10 @@ function PostCard({ post: { body, createdAt, id, username, likeCount, commentCou
             <Image
                 floated='right'
                 size='mini'
-                src='/images/avatar/large/molly.png'
+                src='https://react.semantic-ui.com/images/avatar/large/molly.png'
             />
-            <Card.Header>Molly Thomas</Card.Header>
-            <Card.Meta>New User</Card.Meta>
+            <Card.Header>{username}</Card.Header>
+            <Card.Meta></Card.Meta>
             <Card.Description>
                 Molly wants to add you to the group <strong>musicians</strong>
             </Card.Description>
