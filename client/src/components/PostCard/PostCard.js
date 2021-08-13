@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Icon, Label, Image } from 'semantic-ui-react';
-import Moment from 'moment'
 import moment from 'moment';
 
 function PostCard({ post: { body, createdAt, id, username, likeCount, commentCount, likes } }) {
@@ -14,7 +13,7 @@ function PostCard({ post: { body, createdAt, id, username, likeCount, commentCou
             <Card.Header>{username}</Card.Header>
             <Card.Meta>{moment(createdAt.fromNow())}</Card.Meta>
             <Card.Description>
-                Molly wants to add you to the group <strong>musicians</strong>
+                {body}
             </Card.Description>
         </Card.Content>
         <Card.Content extra>

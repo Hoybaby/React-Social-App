@@ -6,20 +6,33 @@ import PostCard from '../components/PostCard/PostCard'
 
 function Home() {
     // from useQuery we get, loading which is true and data. 
-    const {loading, 
-        data: {getPosts: posts}
+    const {
+        loading,
+        data: {getPosts: posts} 
     } = useQuery(FETCH_POSTS_QUERY);
+    
     // if(data) {
-    //     console.log(data);
+    //     console.log(data)
     // }
     return (
         <Grid columns={3}>
             <Grid.Row>
-                <Grid.Column>
+                
                     <h1>Recent Posts</h1>
-                </Grid.Column>
+                
             </Grid.Row>
             <Grid.Row>
+                {loading ? (
+                    <h1>Loading posts...</h1>
+                ): (
+                    posts && posts.map(post => (
+                        <Grid.Column>
+                            <PostCard post={post}/>
+                        </Grid.Column>
+                    ))
+                )}
+            </Grid.Row>
+            {/* <Grid.Row>
                 {loading ? (
                     <h1>Loading posts..</h1>
                 ): (
@@ -30,7 +43,7 @@ function Home() {
                         </Grid.Column>
                     ))
                 )}
-            </Grid.Row>
+            </Grid.Row> */}
         </Grid>
     )
 }
