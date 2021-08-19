@@ -1,5 +1,5 @@
 import React from 'react'
-import {useQuery} from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag'
 import {Grid} from 'semantic-ui-react';
 import PostCard from '../components/PostCard/PostCard'
@@ -8,7 +8,7 @@ function Home() {
     // from useQuery we get, loading which is true and data. 
     const {
         loading,
-        data: {getPosts: posts} 
+        data: {getPosts: posts} = {} 
     } = useQuery(FETCH_POSTS_QUERY);
     
     // if(data) {
@@ -26,7 +26,7 @@ function Home() {
                     <h1>Loading posts...</h1>
                 ): (
                     posts && posts.map(post => (
-                        <Grid.Column>
+                        <Grid.Column key={post.id} style={{marginBottom: 20}}>
                             <PostCard post={post}/>
                         </Grid.Column>
                     ))
