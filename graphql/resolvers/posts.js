@@ -10,7 +10,7 @@ module.exports = {
             try {
                 const posts = await Post.find().sort({createdAt: -1});
                 return posts;
-            } catch {
+            } catch(err) {
                 throw new Error(err);
             }
         },
@@ -37,7 +37,7 @@ module.exports = {
             const user = checkAuth(context)
             console.log(user)
 
-            if(args.body.trim() === '') {
+            if(body.trim() === '') {
                 throw new Error('Post body can not be empty')
             }
             const newPost = new Post({
