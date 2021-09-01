@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag'
-import {Grid} from 'semantic-ui-react';
+import {Grid, Button, Icon, Label} from 'semantic-ui-react';
 import PostCard from '../components/PostCard/PostCard'
 
 function Home() {
@@ -32,18 +32,8 @@ function Home() {
                     ))
                 )}
             </Grid.Row>
-            {/* <Grid.Row>
-                {loading ? (
-                    <h1>Loading posts..</h1>
-                ): (
-                    // mapping  through the posts
-                    posts && posts.map(post => (
-                        <Grid.Column key={post.id}>
-                            <PostCard post={post}/>
-                        </Grid.Column>
-                    ))
-                )}
-            </Grid.Row> */}
+            
+    
         </Grid>
     )
 }
