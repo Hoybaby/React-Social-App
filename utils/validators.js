@@ -39,7 +39,7 @@ module.exports.validateLoginInput = (username, password) => {
 
 
     if (password.trim() === "") {
-        errors.passwords = "Password must not be empty";
+        errors.password = "Password must not be empty";
     }
 
     return {

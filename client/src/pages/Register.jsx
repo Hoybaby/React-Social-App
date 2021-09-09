@@ -4,10 +4,10 @@ import {Button, Form} from 'semantic-ui-react'
 import {useMutation} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
-
 function Register() {
 
     const [errors, setErrors] = useState({});
+
     const [values, setValues] = useState({
         username: '',
         email: '',
@@ -20,32 +20,28 @@ function Register() {
         setValues({...values, [event.target.name]: event.target.value})
     }
 
-    const [addUser, { loading}] = useMutation(REGISTER_USER, {
+    const [addUser, { loading }] = useMutation(REGISTER_USER, {
         // this will trigger when it is succesful
         update(proxy, result) {
             console.log(result);
         },
         onError(err) {
             // this will tasrget the errors I already establish in my server side code with GRAPHQL
-            console.log(err.graphQLErrors[0].extensions.exception.errors)
-            setErrors(err.graphQLErrors[0].extensions.exception.errors)
+            console.log(err.graphQLErrors[0].extensions.errors)
+            setErrors(err.graphQLErrors[0].extensions.errors)
         },
         variables: values
     })
 
-    const onSubmit= (event) => {
+    const onSubmit = (event) => {
         // we already have a server sdie validation so this will handle alot
         event.preventDefault();
-        addUser();
-
+        addUser(); 
     }
-
-    
-
 
     return (
         <div className="form-container">
-            <Form onSubmit={onSubmit} noValidate className={loading? "loading" : ''}>
+            <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''}>
                 <h1>Register</h1>
                 <Form.Input
                     label="Username"
@@ -86,7 +82,7 @@ function Register() {
             {Object.keys(errors).length > 0 && (
                 <div className="ui error message">
                     <ul className="list">
-                        {Object.values(errors).map(value => (
+                        {Object.values(errors).map((value) => (
                             <li key={value}>{value}</li>
                         ))}
                     </ul>
