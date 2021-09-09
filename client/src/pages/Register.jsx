@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
 import {Button, Form} from 'semantic-ui-react'
+// pretty ssure it can be wrrite just as apollo-client
+import {useMutation} from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 
 function Register() {
@@ -14,6 +17,12 @@ function Register() {
     const onChange = (event) => {
         // need to spread it so it just doesnt overwrite it
         setValues({...values, [event.target.name]: event.target.value})
+    }
+
+    const onSubmit= (event) => {
+        // we already have a server sdie validation so this will handle alot
+        event.preventDefault();
+
     }
     return (
         <div>
@@ -56,5 +65,30 @@ function Register() {
         </div>
     )
 }
+
+const REGISTER_USER = gql`
+    mutation register(
+        $username: String!
+        $email: String!
+        $password: String!
+        $confirmPassword: String!
+    ) {
+        register(
+            registerInput: {
+                username: $username
+                email: $email
+                password: $password
+                confirmPassword: $confirmPassword
+            }
+        ) {
+            id
+            email
+            username
+            createdAt
+            token
+        }
+    }
+
+`
 
 export default Register;
