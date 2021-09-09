@@ -19,13 +19,26 @@ function Register() {
         setValues({...values, [event.target.name]: event.target.value})
     }
 
+    const [addUser, { loading}] = useMutation(REGISTER_USER, {
+        // this will trigger when it is succesful
+        update(proxy, result) {
+            console.log(result);
+        },
+        variables: values
+    })
+
     const onSubmit= (event) => {
         // we already have a server sdie validation so this will handle alot
         event.preventDefault();
+        addUser();
 
     }
+
+    
+
+
     return (
-        <div>
+        <div className="form-container">
             <Form onSubmit={onSubmit} noValidate>
                 <h1>Register</h1>
                 <Form.Input
