@@ -7,6 +7,7 @@ import gql from 'graphql-tag';
 
 function Register() {
 
+    const [errors, setErrors] = useState({});
     const [values, setValues] = useState({
         username: '',
         email: '',
@@ -24,6 +25,11 @@ function Register() {
         update(proxy, result) {
             console.log(result);
         },
+        onError(err) {
+            // this will tasrget the errors I already establish in my server side code with GRAPHQL
+            console.log(err.graphQLErrors[0].extensions.exception.errors)
+            setErrors(err.graphQLErrors[0].extensions.exception.errors)
+        },
         variables: values
     })
 
@@ -39,7 +45,7 @@ function Register() {
 
     return (
         <div className="form-container">
-            <Form onSubmit={onSubmit} noValidate>
+            <Form onSubmit={onSubmit} noValidate className={loading? "loading" : ''}>
                 <h1>Register</h1>
                 <Form.Input
                     label="Username"
@@ -47,6 +53,7 @@ function Register() {
                     name="username"
                     value={values.username}
                     onChange={onChange}
+                    type="text"
                 />
                 <Form.Input
                     label="Email"
@@ -54,6 +61,7 @@ function Register() {
                     name="email"
                     value={values.email}
                     onChange={onChange}
+                    type="email"
                 />
                 <Form.Input
                     label="Password"
@@ -61,6 +69,7 @@ function Register() {
                     name="password"
                     value={values.password}
                     onChange={onChange}
+                    type="password"
                 />
                 <Form.Input
                     label="Confirm Password"
@@ -68,12 +77,21 @@ function Register() {
                     name="confirmPassword"
                     value={values.confirmPassword}
                     onChange={onChange}
+                    type="password"
                 />
                 <Button type="submit primary">
                     Register
                 </Button>
-
             </Form>
+            {Object.keys(errors).length > 0 && (
+                <div className="ui error message">
+                    <ul className="list">
+                        {Object.values(errors).map(value => (
+                            <li key={value}>{value}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
             
         </div>
     )
