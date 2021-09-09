@@ -10,6 +10,15 @@ import 'semantic-ui-css/semantic.min.css';
 function PostCard({ 
     post: { body, createdAt, id, username, likeCount, commentCount, likes } 
 }) {
+    function likePost() {
+        console.log('Like Post')
+    }
+
+    function likeComment() {
+        console.log('Like Comment')
+    }
+
+
     return (
         <div>
             <Card fluid>
@@ -28,13 +37,22 @@ function PostCard({
         <Card.Content extra>
             {/* buttons go here
             <button>Testing</button> */}
-        <Button as='div' labelPosition='right'>
-            <Button color='red'>
+        <Button as='div' labelPosition='right' onClick={likePost}>
+            <Button color='red' basic>
                 <Icon name='heart' />
                 Like
             </Button>
             <Label as='a' basic color='red' pointing='left'>
                 {likeCount}
+            </Label>
+        </Button>
+        <Button as='div' labelPosition='right' onClick={likeComment}>
+            <Button color='blue' basic>
+                <Icon name='comments' />
+                Like
+            </Button>
+            <Label as='a' basic color='blue' pointing='left'>
+                {commentCount}
             </Label>
         </Button>
             
