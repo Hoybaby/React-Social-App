@@ -21,11 +21,6 @@ function App() {
         <Route exact path='/login' component={Login}/>
         <Route exact path='/register' component={Register}/>
       </Container>
-      
-
-      
-      
-      
     </Router>
   );
 }
