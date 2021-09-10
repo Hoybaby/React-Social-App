@@ -18,6 +18,7 @@ function Login(props) {
     const [loginUser, { loading }] = useMutation(LOGIN_USER, {
         // this will trigger when it is succesful
         update(_, result) {
+            console.log(result.data.login)
             props.history.push('/');
         },
         onError(err) {
