@@ -4,26 +4,24 @@ import {Button, Form} from 'semantic-ui-react'
 import {useMutation} from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
-function Register() {
+import {useForm} from '../util/hooks';
+
+function Register(props) {
 
     const [errors, setErrors] = useState({});
 
-    const [values, setValues] = useState({
+    const {onChange, onSubmit, values} = useForm(registerUser, {
         username: '',
         email: '',
         password: '',
         confirmPassword: '',
     })
 
-    const onChange = (event) => {
-        // need to spread it so it just doesnt overwrite it
-        setValues({...values, [event.target.name]: event.target.value})
-    }
-
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
         // this will trigger when it is succesful
-        update(proxy, result) {
-            console.log(result);
+        update(_, result) {
+            
+            props.history.push('/');
         },
         onError(err) {
             // this will tasrget the errors I already establish in my server side code with GRAPHQL
@@ -33,10 +31,8 @@ function Register() {
         variables: values
     })
 
-    const onSubmit = (event) => {
-        // we already have a server sdie validation so this will handle alot
-        event.preventDefault();
-        addUser(); 
+    function registerUser() {
+        addUser();
     }
 
     return (
