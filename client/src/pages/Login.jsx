@@ -1,121 +1,96 @@
-// import React, {useState} from 'react'
-// import {Button, Form} from 'semantic-ui-react'
-// // pretty ssure it can be wrrite just as apollo-client
-// import {useMutation} from '@apollo/react-hooks';
-// import gql from 'graphql-tag';
+import React, {useState} from 'react'
+import {Button, Form} from 'semantic-ui-react'
+// pretty ssure it can be wrrite just as apollo-client
+import {useMutation} from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
-// function Login(props) {
+import {useForm} from '../util/hooks';
 
-//     const [errors, setErrors] = useState({});
+function Login(props) {
 
-    
+    const [errors, setErrors] = useState({});
 
-//     const onChange = (event) => {
-//         // need to spread it so it just doesnt overwrite it
-//         setValues({...values, [event.target.name]: event.target.value})
-//     }
+    const { onChange, onSubmit, values} = useForm(loginUserCallback, {
+        username: '',
+        password: ''
+    })
 
-//     const [addUser, { loading }] = useMutation(REGISTER_USER, {
-//         // this will trigger when it is succesful
-//         update(_, result) {
-//             console.log(result);
-//             props.history.push('/');
-//         },
-//         onError(err) {
-//             // this will tasrget the errors I already establish in my server side code with GRAPHQL
-//             console.log(err.graphQLErrors[0].extensions.errors)
-//             setErrors(err.graphQLErrors[0].extensions.errors)
-//         },
-//         variables: values
-//     })
+    const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+        // this will trigger when it is succesful
+        update(_, result) {
+            props.history.push('/');
+        },
+        onError(err) {
+            // this will tasrget the errors I already establish in my server side code with GRAPHQL
+            console.log(err.graphQLErrors[0].extensions.errors)
+            setErrors(err.graphQLErrors[0].extensions.errors)
+        },
+        variables: values
+    })
 
-//     const onSubmit = (event) => {
-//         // we already have a server sdie validation so this will handle alot
-//         event.preventDefault();
-//         addUser(); 
-//     }
+    function loginUserCallback() {
+        loginUser();
+    }
 
-//     return (
-//         <div className="form-container">
-//             <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''}>
-//                 <h1>Register</h1>
-//                 <Form.Input
-//                     label="Username"
-//                     placeholder="Username"
-//                     name="username"
-//                     value={values.username}
-//                     onChange={onChange}
-//                     type="text"
-//                     error={errors.username ? true : false}
-//                 />
-//                 <Form.Input
-//                     label="Email"
-//                     placeholder="Email"
-//                     name="email"
-//                     value={values.email}
-//                     onChange={onChange}
-//                     type="email"
-//                     error={errors.email ? true : false}
-//                 />
-//                 <Form.Input
-//                     label="Password"
-//                     placeholder="Password"
-//                     name="password"
-//                     value={values.password}
-//                     onChange={onChange}
-//                     type="password"
-//                     error={errors.password ? true : false}
-//                 />
-//                 <Form.Input
-//                     label="Confirm Password"
-//                     placeholder="Confirm Password"
-//                     name="confirmPassword"
-//                     value={values.confirmPassword}
-//                     onChange={onChange}
-//                     type="password"
-//                     error={errors.confirmPassword ? true : false}
-//                 />
-//                 <Button type="submit primary">
-//                     Register
-//                 </Button>
-//             </Form>
-//             {Object.keys(errors).length > 0 && (
-//                 <div className="ui error message">
-//                     <ul className="list">
-//                         {Object.values(errors).map((value) => (
-//                             <li key={value}>{value}</li>
-//                         ))}
-//                     </ul>
-//                 </div>
-//             )}
+    return (
+        <div className="form-container">
+            <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''}>
+                <h1>Login</h1>
+                <Form.Input
+                    label="Username"
+                    placeholder="Username"
+                    name="username"
+                    value={values.username}
+                    onChange={onChange}
+                    type="text"
+                    error={errors.username ? true : false}
+                />
+                
+                <Form.Input
+                    label="Password"
+                    placeholder="Password"
+                    name="password"
+                    value={values.password}
+                    onChange={onChange}
+                    type="password"
+                    error={errors.password ? true : false}
+                />
+                
+                <Button type="submit primary">
+                    Login
+                </Button>
+            </Form>
+            {Object.keys(errors).length > 0 && (
+                <div className="ui error message">
+                    <ul className="list">
+                        {Object.values(errors).map((value) => (
+                            <li key={value}>{value}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
             
-//         </div>
-//     )
-// }
+        </div>
+    )
+}
 
-// const REGISTER_USER = gql`
-//     mutation register(
-//         $username: String!
-//         $email: String!
-//         $password: String!
-//         $confirmPassword: String!
-//     ) {
-//         register(
-//             registerInput: {
-//                 username: $username
-//                 email: $email
-//                 password: $password
-//                 confirmPassword: $confirmPassword
-//             }
-//         ) {
-//             id
-//             email
-//             username
-//             createdAt
-//             token
-//         }
-//     }
+const LOGIN_USER = gql`
+    mutation login(
+        $username: String!
+        $password: String!
+    ) {
+        login(
+                username: $username
+                password: $password
+        ) {
+            id
+            email
+            username
+            createdAt
+            token
+        }
+    }
 
-// `
+`
 
-// export default Login;
+export default Login;
