@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Menu } from 'semantic-ui-react'
 import {Link } from 'react-router-dom';
 
+import {AuthContext} from '../context/auth';
+
 function MenuBar() {
 
-  
+    const {user, logout} = useContext(AuthContext)
+
     const pathName = window.location.pathname;
 
     const path = pathName === '/' ? 'home' : pathName.substr(1);
@@ -13,36 +16,56 @@ function MenuBar() {
 
     const handleItemClick = (e, { name }) => setActiveItem(name)
 
-        return (
-                <Menu pointing secondary size="massive" color="teal">
+    const menuBar = user ? (
+        <Menu pointing secondary size="massive" color="teal">
                     <Menu.Item
-                        name='home'
+                        name={user.username}
                         // if activeItem is true, the messages will be highlighted
-                        active={activeItem === 'home'}
-                        // got rid of this.handleItemClick because it aint a class based component anymore
-                        onClick={handleItemClick}
-                        // semantic ui has an integeration and has it behave as a different component. We want it to make a link. We need an as={} and to={}
+                        active
                         as={Link}
                         to={'/'}
                     />
                     <Menu.Menu position='right'>
                         <Menu.Item
-                            name='login'
-                            active={activeItem === 'login'}
-                            onClick={handleItemClick}
-                            as={Link}
-                            to={'/login'}
+                            name='logout'
+                            onClick={logout}
+                            
                         />
-                        <Menu.Item
-                            name='register'
-                            active={activeItem === 'register'}
-                            onClick={handleItemClick}
-                            as={Link}
-                            to={'/register'}
-                        />
+                        
                     </Menu.Menu>
                 </Menu>
-        )
+        ) : (
+            <Menu pointing secondary size="massive" color="teal">
+            <Menu.Item
+                name="home"
+                active={activeItem === 'home'}
+                onClick={handleItemClick}
+                as={Link}
+                to="/"
+            />
+            <Menu.Menu position="right">
+                <Menu.Item
+                    name="login"
+                    active={activeItem === 'login'}
+                    onClick={handleItemClick}
+                    as={Link}
+                    to="/login"
+                />
+                <Menu.Item
+                    name="register"
+                    active={activeItem === 'register'}
+                    onClick={handleItemClick}
+                    as={Link}
+                    to="/register"
+                />
+                </Menu.Menu>
+            </Menu>
+    )
+    
+
+
+    return menuBar;
+                
     
 }
 
