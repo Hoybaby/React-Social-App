@@ -1,4 +1,4 @@
-import React, {useReducer,createContext} from 'react';
+import React, {useReducer, createContext} from 'react';
 
 const AuthContext = createContext({
     user: null,
@@ -8,7 +8,7 @@ const AuthContext = createContext({
 
 // reducer,
 function authReducer(state, action) {
-    switch(action.state) {
+    switch(action.type) {
 
         case 'LOGIN':
             return {
