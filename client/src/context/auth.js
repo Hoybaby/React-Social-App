@@ -1,13 +1,27 @@
 import React, {useReducer, createContext} from 'react';
 
+import jwtDecode from 'jwt-decode';
+
+const initialState = {
+    user: null
+}
+
 // This is checking for the jwt token that is being stored in the local storage when a user is created
 if(localStorage.getItem('jwtToken')) {
 
+    const decodedToken = jwtDecode(localStorage.getItem('jwtToken'))
+
+    // basically saying if the token is less than the time, remove the jwt token else the user = token whjich then pulls the info
+    if(decodedToken.exp *1000 < Date.now()) {
+        localStorage.removeItem('jwtToken')
+    } else {
+        initialState.user = decodedToken;
+    }
 }
 
 const AuthContext = createContext({
     user: null,
-    login: (userData)=> {},
+    login: (userData) => {},
     logout: () => {}
 })
 
@@ -32,23 +46,20 @@ function authReducer(state, action) {
 }
 
 
-function AuthProvider(props){
-    const [ state, dispatch] = useReducer(authReducer, { user: null});
-    // now we can use it to dispatch any action and attach it a payload and do any action we want.
+function AuthProvider(props) {
+    const [state, dispatch] = useReducer(authReducer, initialState);
 
-    function login(userData)  {
-        localStorage.setItem("jwtToken", userData.token)
+    function login(userData) {
+        localStorage.setItem('jwtToken', userData.token);
         dispatch({
             type: 'LOGIN',
             payload: userData
-        })
+        });
     }
 
     function logout() {
-        localStorage.removeItem('jwtToken')
-        dispatch({
-            type: 'LOGOUT'
-        })
+        localStorage.removeItem('jwtToken');
+        dispatch({ type: 'LOGOUT' });
     }
 
     return (
