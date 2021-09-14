@@ -5,6 +5,9 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
+import { AuthProvider } from './context/auth';
+import AuthRoute from './util/AuthRoute';
+
 // components
 import MenuBar from './components/MenuBar';
 import Home from './pages/Home';
@@ -14,14 +17,18 @@ import { Container } from 'semantic-ui-react';
 
 function App() {
   return (
-    <Router>
-      <Container>
-        <MenuBar/>
-        <Route exact path='/' component={Home}/>
-        <Route exact path='/login' component={Login}/>
-        <Route exact path='/register' component={Register}/>
-      </Container>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Container>
+          <MenuBar/>
+          <Route exact path='/' component={Home}/>
+          {/* we are doing an AuthRoute to handle the redirect if they are logged in already */}
+          <AuthRoute exact path='/login' component={Login}/>
+          <AuthRoute exact path='/register' component={Register}/>
+        </Container>
+      </Router>
+    </AuthProvider>
+    
   );
 }
 
