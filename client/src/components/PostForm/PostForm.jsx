@@ -1,7 +1,8 @@
-import { values } from 'lodash';
+
 import React from 'react'
 import {Form, Button} from 'semantic-ui-react';
 import gql from 'graphql-tag'
+import {useMutation} from '@apollo/react-hooks';
 
 import {useForm} from '../../util/hooks';
 
@@ -12,6 +13,20 @@ function PostForm() {
         
         body: ''
     })
+
+    const [createPost, {error}] = useMutation(CREATE_POST_MUTATION, {
+
+        variables: values,
+        update(_, result){
+            console.log(result)
+            // this will empty the body field when form is submitted
+            values.body = '';
+        }
+    });
+
+    function createPostCallback(){
+        createPost()
+    }
 
     return (
         <Form onSubmit={onSubmit}>
@@ -30,7 +45,8 @@ function PostForm() {
     )
 }
 
-const CREATE_POST_CREATION = gql`
+// this will handle the input of the body of a post into the databse
+const CREATE_POST_MUTATION = gql`
     mutation createPost ($body: String!){
         createPost(body: $body){
             id

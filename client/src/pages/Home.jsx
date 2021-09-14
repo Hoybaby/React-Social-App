@@ -5,7 +5,7 @@ import {Grid, Button, Icon, Label} from 'semantic-ui-react';
 import PostCard from '../components/PostCard/PostCard'
 
 import {AuthContext} from '../context/auth';
-import PostForm from '../components/PostForm/Postform'
+import PostForm from '../components/PostForm/PostForm'
 
 function Home() {
 
