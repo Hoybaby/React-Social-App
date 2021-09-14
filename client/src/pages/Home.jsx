@@ -1,10 +1,17 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag'
 import {Grid, Button, Icon, Label} from 'semantic-ui-react';
 import PostCard from '../components/PostCard/PostCard'
 
+import {AuthContext} from '../context/auth';
+import PostForm from '../components/PostForm/Postform'
+
 function Home() {
+
+
+    const {user} =useContext(AuthContext)
+
     // from useQuery we get, loading which is true and data. 
     const {
         loading,
@@ -22,6 +29,12 @@ function Home() {
                 
             </Grid.Row>
             <Grid.Row>
+                {user && (
+                    <Grid.Column>
+                        <PostForm/>
+                    </Grid.Column>
+                )}
+
                 {loading ? (
                     <h1>Loading posts...</h1>
                 ): (
