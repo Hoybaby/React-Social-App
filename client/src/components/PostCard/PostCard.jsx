@@ -46,7 +46,7 @@ function PostCard({
                 {likeCount}
             </Label>
         </Button>
-        <Button as='div' labelPosition='right' onClick={likeComment}>
+        <Button as='div' labelPosition='right' as={Link} to={`/posts/${id}`}>
             <Button color='blue' basic>
                 <Icon name='comments' />
                 Like
