@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import { useQuery } from '@apollo/react-hooks';
 // import gql from 'graphql-tag'
-import {Grid, Button, Icon, Label} from 'semantic-ui-react';
+import {Grid} from 'semantic-ui-react';
 import PostCard from '../components/PostCard/PostCard'
 
 import {AuthContext} from '../context/auth';

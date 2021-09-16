@@ -18,17 +18,19 @@ function PostForm() {
     const [createPost, {error}] = useMutation(CREATE_POST_MUTATION, {
 
         variables: values,
-        update(proxy, result){
-            console.log(result)
-            // dont forget that this query is inside getPosts
-            const data = proxy.readQuery({
-                query: FETCH_POSTS_QUERY
-            })
-            data.getPosts = [result.data.getPost, ...data.getPosts]
-            proxy.writeQuery({query: FETCH_POSTS_QUERY, data})
-            // this will empty the body field when form is submitted
-            values.body = '';
-        }
+        update(cache, result) {
+            const data = cache.readQuery({
+                query: FETCH_POSTS_QUERY,
+            });
+            console.log(`in PostForm ${data}`);
+            cache.writeQuery({
+                query: FETCH_POSTS_QUERY,
+                data: {
+                getPosts: [result.data.createPost, ...data.getPosts],
+                },
+            });
+            values.body = "";
+        },
     });
 
     function createPostCallback(){
@@ -36,7 +38,8 @@ function PostForm() {
     }
 
     return (
-        <Form onSubmit={onSubmit}>
+        <div>
+            <Form onSubmit={onSubmit}>
             <h2>Create a Post: </h2>
             <Form.Field>
                 <Form.Input 
@@ -44,11 +47,21 @@ function PostForm() {
                     name="body"
                     onChange={onChange}
                     value={values.body}
+                    error={error ? true : false}
                     />
                 <Button type="submit" color="teal">Submit</Button>
 
             </Form.Field>
-        </Form>
+            </Form>
+            {error && (
+                <div className="ui error message" style={{marginBottom: 20}}>
+                    <ul className="list">
+                        <li>{error.graphQLErrors[0].message}</li>
+                    </ul>
+                </div>
+            )}
+        </div>
+        
     )
 }
 
