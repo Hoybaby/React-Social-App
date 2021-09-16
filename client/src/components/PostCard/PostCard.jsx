@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext } from 'react';
 import { Card, Icon, Label, Image,  } from 'semantic-ui-react';
 import { Button } from 'semantic-ui-react';
 
@@ -7,9 +7,14 @@ import moment from 'moment';
 
 import 'semantic-ui-css/semantic.min.css';
 
+import {AuthContext} from '../../context/auth'
+
 function PostCard({ 
     post: { body, createdAt, id, username, likeCount, commentCount, likes } 
 }) {
+
+    const {user} = useContext(AuthContext);
+
     function likePost() {
         console.log('Like Post')
     }
@@ -55,6 +60,12 @@ function PostCard({
                 {commentCount}
             </Label>
         </Button>
+        {/* so if we are logged in equals to the username of this poist, this is the owner, so we want to show a delete button */}
+        {user && user.username && (
+            <Button as="div" color="red" onClick={() => console.log('Delete Post')}>
+                <Icon name="trash"/>
+            </Button>
+        )}
             
         
         </Card.Content>
