@@ -14,18 +14,50 @@ function LikeButton({post: {id, likeCount, likes}}) {
         } else setLiked(false);
     }, [user, likes]);
 
-    
-    <Button as='div' labelPosition='right' onClick={likePost}>
-        <Button color='red' basic>
-            <Icon name='heart' />
-            Like
+    const likeButton = user ? (
+        // if we have liked it, this will be filled
+        liked ? (
+            <Button color="red">
+                <Icon name="heart"/>
+            </Button>
+        ) : (
+            // else it will not be filled in
+            <Button color="red" basic>
+                <Icon name="heart"/>
+            </Button>
+        )
+    ) : (
+        <Button as={Link} to="/login" color="red" basic>
+                <Icon name="heart"/>
         </Button>
-        <Label as='a' basic color='red' pointing='left'>
-            {likeCount}
-        </Label>
-    </Button>
+    )
+
+    return (
+        <Button as='div' labelPosition='right' onClick={likePost}>
+            {likeButton}
+            <Label as='a' basic color='red' pointing='left'>
+                {likeCount}
+            </Label>
+        </Button>
+    )
+    
 }
 
+
+const LIKE_POST_MUTATION = gql`
+    mutation likePost($postId: Id!) {
+        likePost(postId: $postId) {
+            id
+            likes{
+                id
+                username
+            }
+            likeCount
+        }
+    }
+
+
+`
 
 export default LikeButton;
     
