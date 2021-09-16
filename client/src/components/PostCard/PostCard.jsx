@@ -8,6 +8,7 @@ import moment from 'moment';
 import 'semantic-ui-css/semantic.min.css';
 
 import {AuthContext} from '../../context/auth'
+import LikeButton from '../LikeButton/LikeButton';
 
 function PostCard({ 
     post: { body, createdAt, id, username, likeCount, commentCount, likes } 
@@ -42,15 +43,8 @@ function PostCard({
         <Card.Content extra>
             {/* buttons go here
             <button>Testing</button> */}
-        <Button as='div' labelPosition='right' onClick={likePost}>
-            <Button color='red' basic>
-                <Icon name='heart' />
-                Like
-            </Button>
-            <Label as='a' basic color='red' pointing='left'>
-                {likeCount}
-            </Label>
-        </Button>
+        <LikeButton post={{id, likes, likeCount}} user={user}/>
+
         <Button as='div' labelPosition='right' as={Link} to={`/posts/${id}`}>
             <Button color='blue' basic>
                 <Icon name='comments' />
@@ -62,8 +56,12 @@ function PostCard({
         </Button>
         {/* so if we are logged in equals to the username of this poist, this is the owner, so we want to show a delete button */}
         {user && user.username === username && (
-            <Button as="div" color="red" onClick={() => console.log('Delete Post')}>
-                <Icon name="trash"/>
+            <Button as="div" 
+            color="red" 
+            onClick={() => console.log('Delete Post')}
+            floated="right"
+            >
+                <Icon name="trash" style ={{margin: 0}}/>
             </Button>
         )}
             
