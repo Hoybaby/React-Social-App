@@ -61,7 +61,7 @@ function PostCard({
             </Label>
         </Button>
         {/* so if we are logged in equals to the username of this poist, this is the owner, so we want to show a delete button */}
-        {user && user.username && (
+        {user && user.username === username && (
             <Button as="div" color="red" onClick={() => console.log('Delete Post')}>
                 <Icon name="trash"/>
             </Button>
