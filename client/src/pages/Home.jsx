@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import { useQuery } from '@apollo/react-hooks';
 // import gql from 'graphql-tag'
-import {Grid} from 'semantic-ui-react';
+import {Grid, Transition} from 'semantic-ui-react';
 import PostCard from '../components/PostCard/PostCard'
 
 import {AuthContext} from '../context/auth';
@@ -27,6 +27,7 @@ function Home() {
             <Grid.Row className='page-title'>
                 
                     <h1>Recent Posts</h1>
+                    
                 
             </Grid.Row>
             <Grid.Row>
@@ -35,15 +36,17 @@ function Home() {
                         <PostForm/>
                     </Grid.Column>
                 )}
-
                 {loading ? (
                     <h1>Loading posts...</h1>
+                    // else is below
                 ): (
-                    posts && posts.map(post => (
+                    <Transition.Group> 
+                        {posts && posts.map(post => (
                         <Grid.Column key={post.id} style={{marginBottom: 20}}>
                             <PostCard post={post}/>
                         </Grid.Column>
-                    ))
+                        ))}
+                    </Transition.Group>
                 )}
             </Grid.Row>
             
