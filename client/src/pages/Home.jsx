@@ -23,7 +23,8 @@ function Home() {
     //     console.log(data)
     // }
     return (
-        <Grid columns={3}>
+        <div>
+            <Grid columns={3}>
             <Grid.Row className='page-title'>
                 
                     <h1>Recent Posts</h1>
@@ -52,6 +53,8 @@ function Home() {
             
     
         </Grid>
+        </div>
+       
     )
 }
 
