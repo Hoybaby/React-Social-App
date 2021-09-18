@@ -1,7 +1,7 @@
 import React, {useContext } from 'react'
 import gql from 'graphql-tag'
 import {useQuery} from '@apollo/react-hooks'
-import { Card, Grid } from 'semantic-ui-react';
+import { Button, Card, Grid } from 'semantic-ui-react';
 import moment from 'moment'
 import { AuthContext } from '../context/auth';
 // import { FETCH_POSTS_QUERY } from '../util/graphql';
@@ -48,6 +48,18 @@ function SinglePost(props) {
                             <hr/>
                             <Card.Content extra>
                                 <LikeButton user={user} post={{ id, likeCount, likes}}/>
+                                <Button 
+                                    as="div"
+                                    labelPosition="right"
+                                    onClick={() => console.log("Comment on post")}
+                                    >
+                                        <Button basic color="blue">
+                                            <Icon name="comments"/>
+                                            <Label basic color="blue" pointing="left">
+                                                {commentCount}
+                                            </Label>
+                                        </Button>
+                                </Button>
                             </Card.Content>
                         </Card>
                     </Grid.Column>

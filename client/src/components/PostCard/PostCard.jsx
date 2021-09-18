@@ -9,6 +9,7 @@ import moment from 'moment';
 
 import {AuthContext} from '../../context/auth'
 import LikeButton from '../LikeButton/LikeButton';
+import DeleteButton from '../DeleteButton/DeleteButton'
 
 function PostCard({ 
     post: { body, createdAt, id, username, likeCount, commentCount, likes } 
@@ -59,15 +60,7 @@ function PostCard({
                     </Label>
                 </Button>
                 {/* so if we are logged in equals to the username of this poist, this is the owner, so we want to show a delete button */}
-                {user && user.username === username && (
-                    <Button as="div" 
-                    color="red" 
-                    onClick={() => console.log('Delete Post')}
-                    floated="right"
-                    >
-                        <Icon name="trash" style ={{margin: 0}}/>
-                    </Button>
-                    )}
+                {user && user.username === username && <DeleteButton postId={id}/>}
                 </Card.Content>
             </Card>
     
