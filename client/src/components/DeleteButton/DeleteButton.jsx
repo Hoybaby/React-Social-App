@@ -4,16 +4,16 @@ import {useMutation} from '@apollo/react-hooks';
 
 import {Button, Confirm, Icon} from 'semantic-ui-react';
 
-function DeleteButton() {
+function DeleteButton({postId}) {
 
     const [confirmOpen, setConfirmOpen] = useState(false);
 
     const [deletePost] = useMutation(DELETE_POST_MUTATION, {
         update() {
             // once we reach the update, we have confirmed the modal
-            setConfirmOpen(false);
+            setConfirmOpen(false)
             // have to remove post from cache
-        }
+        },
         variables: {
             postId
         }
@@ -24,8 +24,8 @@ function DeleteButton() {
         <div>
             <Button as="div" 
             color="red" 
-            onClick={() => console.log('Delete Post')}
             floated="right"
+            onClick={() => setConfirmOpen(true)}
             >
                 <Icon name="trash" style ={{margin: 0}}/>
             </Button>
@@ -42,11 +42,8 @@ function DeleteButton() {
 }
 
 const DELETE_POST_MUTATION = gql`
-    mutation deletePost($postId;Id!) {
-        deletePost($postId: postId)
+    mutation deletePost($postId: ID!) {
+        deletePost(postId: $postId)
     }
-
-
-
 `
 export default DeleteButton;
