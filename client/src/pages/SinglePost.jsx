@@ -37,7 +37,7 @@ function SinglePost(props) {
                 <Grid.Row>
                     <Grid.Column width={2}>
                         <Image
-                        src="src='https://react.semantic-ui.com/images/avatar/large/molly.png"
+                        src='https://react.semantic-ui.com/images/avatar/large/molly.png'
                         size="small"
                         float="right"/>
                     </Grid.Column>
