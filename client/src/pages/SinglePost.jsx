@@ -58,10 +58,11 @@ function SinglePost(props) {
                                     >
                                         <Button basic color="blue">
                                             <Icon name="comments"/>
+                                        </Button>
                                             <Label basic color="blue" pointing="left">
                                                 {commentCount}
                                             </Label>
-                                        </Button>
+                                        
                                 </Button>
                                 {user && user.username === username && (
                                     <DeleteButton postId={id}/>
