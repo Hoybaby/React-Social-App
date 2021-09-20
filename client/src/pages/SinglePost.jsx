@@ -6,6 +6,9 @@ import moment from 'moment'
 import { AuthContext } from '../context/auth';
 // import { FETCH_POSTS_QUERY } from '../util/graphql';
 
+import LikeButton from '../components/LikeButton/LikeButton'
+import DeleteButton from '../components/DeleteButton/DeleteButton'
+
 function SinglePost(props) {
 
     const postId = props.match.params.postId;
@@ -14,7 +17,7 @@ function SinglePost(props) {
     // to see if we are getting it properly
     console.log(postId);
 
-    const { data: {getPost}} = useQuery(FETCH_POSTS_QUERY, {
+    const { data: { getPost } = {}} = useQuery(FETCH_POST_QUERY, {
         
         variables: {
             postId
@@ -27,7 +30,7 @@ function SinglePost(props) {
     if(!getPost) {
         postMarkup = <p>Loading post...</p>
     } else {
-        const {id, body, createdAt, usename, comments, likes, likeCount, commentCount} = getPost;
+        const {id, body, createdAt, username, comments, likes, likeCount, commentCount} = getPost;
 
         postMarkup = (
             <Grid>
@@ -60,6 +63,9 @@ function SinglePost(props) {
                                             </Label>
                                         </Button>
                                 </Button>
+                                {user && user.username === username && (
+                                    <DeleteButton postId={id}/>
+                                )}
                             </Card.Content>
                         </Card>
                     </Grid.Column>
@@ -69,7 +75,7 @@ function SinglePost(props) {
         )
     }
 
-    
+    return postMarkup;
 
 
 }
