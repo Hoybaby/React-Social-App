@@ -28,11 +28,11 @@ function SinglePost(props) {
 
     const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
         update() {
-            setComment()
+            setComment('')
         },
         variables: {
             postId,
-            bodyId: comment
+            body: comment
         }
     })
 
@@ -132,7 +132,7 @@ function SinglePost(props) {
 
 const SUBMIT_COMMENT_MUTATION = gql`
 
-    mutation($postId: ID!, $body: String!) {
+    mutation($postId: String!, $body: String!) {
         createComment(postId: $postId, body: $body) {
             id
             comments{
