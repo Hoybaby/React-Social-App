@@ -24,6 +24,10 @@ function SinglePost(props) {
         }
     });
 
+    function deletePostCallback() {
+        props.history.push('/');
+    }
+
 
     let postMarkup;
     // we might still be loading and it will get this, could be a spinner later
@@ -65,7 +69,7 @@ function SinglePost(props) {
                                         
                                 </Button>
                                 {user && user.username === username && (
-                                    <DeleteButton postId={id}/>
+                                    <DeleteButton postId={id} callback={deletePostCallback}/>
                                 )}
                             </Card.Content>
                         </Card>
