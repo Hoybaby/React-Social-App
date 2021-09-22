@@ -1,5 +1,5 @@
 import React, {useContext } from 'react';
-import { Card, Icon, Label, Image,  } from 'semantic-ui-react';
+import { Card, Icon, Label, Image, Popup  } from 'semantic-ui-react';
 import { Button } from 'semantic-ui-react';
 
 import {Link} from 'react-router-dom';
@@ -17,9 +17,9 @@ function PostCard({
 
     const {user} = useContext(AuthContext);
 
-    // const likePost =() => {
-    //     console.log('Like Post')
-    // }
+    const likePost =() => {
+        console.log('Like Post')
+    }
 
     return (
         <div>
@@ -39,7 +39,7 @@ function PostCard({
                 <Card.Content extra>
                     {/* buttons go here
                     <button>Testing</button> */}
-                <LikeButton post={{id, likes, likeCount}} user={user}/>
+                    <LikeButton post={{id, likes, likeCount}} user={user}/>
                 {/* <Button as='div' labelPosition='right' onClick={likePost}>
                     <Button color='red' basic>
                         <Icon name='heart' />
@@ -49,16 +49,21 @@ function PostCard({
                         {likeCount}
                     </Label>
                 </Button> */}
-
-                <Button labelPosition='right' as={Link} to={`/posts/${id}`}>
-                    <Button color='blue' basic>
-                        <Icon name='comments' />
-                        Comments
-                    </Button>
-                    <Label as='a' basic color='blue' pointing='left'>
-                        {commentCount}
-                    </Label>
-                </Button>
+                <Popup 
+                    content="Comment on Post"
+                    inverted
+                    trigger ={
+                        <Button labelPosition='right' as={Link} to={`/posts/${id}`}>
+                            <Button color='blue' basic>
+                                <Icon name='comments' />
+                                Comments
+                            </Button>
+                            <Label as='a' basic color='blue' pointing='left'>
+                                {commentCount}
+                            </Label>
+                        </Button>
+                    }/>
+                
                 {/* so if we are logged in equals to the username of this poist, this is the owner, so we want to show a delete button */}
                 {user && user.username === username && <DeleteButton postId={id}/>}
                 </Card.Content>

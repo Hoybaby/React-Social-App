@@ -1,4 +1,4 @@
-import React, {useContext, useState } from 'react';
+import React, {useContext, useState, useRef } from 'react';
 import gql from 'graphql-tag'
 import {useQuery, useMutation} from '@apollo/react-hooks'
 import { Button, Card, Grid, Image, Icon, Label, Form } from 'semantic-ui-react';
@@ -17,6 +17,8 @@ function SinglePost(props) {
     // to see if we are getting it properly
     console.log(postId);
 
+    const commentInputRef = useRef(null)
+
     const [comment, setComment] = useState('');
 
     const { data: { getPost } = {}} = useQuery(FETCH_POST_QUERY, {
@@ -28,7 +30,9 @@ function SinglePost(props) {
 
     const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
         update() {
-            setComment('')
+            setComment('');
+            // this makes the input field blurred after input has been compelted
+            commentInputRef.current.blur()
         },
         variables: {
             postId,
@@ -89,6 +93,7 @@ function SinglePost(props) {
                             <Card fluid>
                                 <Card.Content>
                                 <p>Post a Comment</p>
+                                {/* since i made the form like this compared to semantic ui react, I am able to refference it */}
                                     <Form> 
                                         <div className="ui action input fluid">
                                             <input type="text" 
@@ -96,6 +101,7 @@ function SinglePost(props) {
                                                 name='comment' 
                                                 value={comment} 
                                                 onChange={event => setComment(event.target.value)}
+                                                ref={commentInputRef}
                                             />
                                         
                                             <button type="submit" className="ui button teal" 
