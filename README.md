@@ -63,6 +63,7 @@ Michael Bartek.
 
 
 ## Contact
-Hoybaby
+
+My GitHub is Hoybaby and my name is Michael Bartek.
 
 If you have any questions, contact the author directly at mbartek436@gmail.com.
