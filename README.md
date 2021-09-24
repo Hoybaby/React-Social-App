@@ -7,8 +7,6 @@ Individuals must register an account to write posts and comments onto the applic
 
 * [Installation](#installation)
 
-* [Usage](#usage)
-
 * [License](#license)
 
 * [Process](#process)
